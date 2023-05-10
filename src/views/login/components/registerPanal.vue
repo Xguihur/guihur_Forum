@@ -18,7 +18,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 import store from '@/store'
-import { ref, reactive } from 'vue'
+import { submitForm, ruleFormRef, ruleForm, rules } from '@/hooks/useRegisterValidate.js'
 
 const toRegister = async () => {
   let result = await submitForm(ruleFormRef.value)
@@ -36,61 +36,6 @@ const toRegister = async () => {
       type: 'error'
     })
   }
-}
-
-const ruleFormRef = ref()
-
-const validateAcount = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the Acount'))
-  } else {
-    callback()
-  }
-}
-
-const validatePass = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-  } else {
-    if (ruleForm.checkPass !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass', () => null)
-    }
-    callback()
-  }
-}
-const validatePass2 = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== ruleForm.pass) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
-  }
-}
-
-const ruleForm = reactive({
-  account: '',
-  pass: '',
-  checkPass: ''
-})
-
-const rules = reactive({
-  account: [{ validator: validateAcount, trigger: 'blur' }],
-  pass: [{ validator: validatePass, trigger: 'blur' }],
-  checkPass: [{ validator: validatePass2, trigger: 'blur' }]
-})
-
-const submitForm = formEl => {
-  if (!formEl) return
-  return formEl.validate(valid => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
 }
 </script>
 <style scoped lang="less">

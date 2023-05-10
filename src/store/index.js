@@ -4,16 +4,22 @@ import loginModule from './login'
 const store = createStore({
   state() {
     return {
-      loginState: false
+      loginState: false,
+      myArticle: ''
     }
   },
   mutations: {
     changeLoginState(state) {
       state.loginState = !state.loginState
+    },
+    changeMyArticle(state, payload) {
+      state.myArticle = payload
     }
   },
   getters: {},
-  actions: {},
+  actions: {
+    // 异步获取文章的数据，然后存放到 vuex 中
+  },
   modules: { loginModule }
 })
 

@@ -10,8 +10,10 @@
   </div>
 </template>
 <script setup>
-import { ElMessage } from 'element-plus'
+// import { ElMessage } from 'element-plus'
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
+
 defineProps({
   title: {
     type: String,
@@ -26,11 +28,14 @@ defineProps({
   }
 })
 
+const router = useRouter()
+
 const showDetail = () => {
-  ElMessage({
-    message: '查看文章详情-通过query参数请求接口数据渲染-未实现',
-    type: 'success'
-  })
+  router.push('/article_detail')
+  // ElMessage({
+  //   message: '查看文章详情-通过query参数请求接口数据渲染-未实现',
+  //   type: 'success'
+  // })
 }
 </script>
 <style scoped lang="less">

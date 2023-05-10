@@ -22,9 +22,9 @@
 <script setup>
 // import ghInput from '@/components/input-twrice.vue'
 import { ElMessage } from 'element-plus'
-import { ref, reactive } from 'vue'
 import store from '@/store'
 import { useRouter } from 'vue-router'
+import { submitForm, ruleFormRef, ruleForm, rules } from '@/hooks/useLoginValidate.js' //导入登录模块需要用到的规则和表单数据
 
 const router = useRouter()
 
@@ -34,8 +34,8 @@ const toLogin = async () => {
   if (!result) return //未通过验证
   // 此处未来调用接口验证登录信息
   store.commit('changeLoginState') // 改变登录状态
-  store.commit('loginModule/setLoginMsg', ruleForm.account, ruleForm.pass) //将登录信息存入vuex
-  // console.log(store.state.loginState)
+  store.commit('loginModule/setLoginMsg', ruleForm) //将登录信息存入vuex
+  console.log(store.state.loginModule.password)
   if (store.state.loginState) {
     ElMessage({
       message: '登陆成功',
@@ -54,50 +54,6 @@ const toLogin = async () => {
 const forget = () => {
   ElMessage({
     message: '忘记密码'
-  })
-}
-
-const ruleFormRef = ref()
-
-const validateAccount = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the account'))
-  } else {
-    callback()
-  }
-}
-
-const validatePass = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-  } else {
-    if (ruleForm.checkPass !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass', () => null)
-    }
-    callback()
-  }
-}
-
-const ruleForm = reactive({
-  account: '',
-  pass: ''
-})
-
-const rules = reactive({
-  account: [{ validator: validateAccount, trigger: 'blur' }],
-  pass: [{ validator: validatePass, trigger: 'blur' }]
-})
-
-const submitForm = formEl => {
-  if (!formEl) return
-  return formEl.validate(valid => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
   })
 }
 </script>

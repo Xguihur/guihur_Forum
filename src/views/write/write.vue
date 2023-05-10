@@ -19,9 +19,10 @@
 <script setup>
 // import ghInput from '@/components/input-twrice.vue'
 import { ElMessage } from 'element-plus'
-import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-// import store from '@/store'
+import store from '@/store'
+
+import { submitForm, ruleFormRef, ruleForm, rules } from '@/hooks/useWriteValidate.js'
 
 const router = useRouter()
 
@@ -31,6 +32,10 @@ const toPublic = async () => {
   if (!result) return //未通过验证
   // 此处未来调用接口验证登录信息
   // console.log(ruleForm.content)
+  // 先暂时存到 vuex 中
+  store.commit('changeMyArticle', ruleForm.content)
+  console.log(store.state.myArticle)
+
   // 跳转到主页查看自己的文章
   setTimeout(() => {
     router.push('./main')
@@ -45,38 +50,6 @@ const toPublic = async () => {
 const clear = () => {
   ruleForm.title = ''
   ruleForm.content = ''
-}
-
-const ruleFormRef = ref()
-
-const validateNotVoid = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Content not-allow void !'))
-  } else {
-    callback()
-  }
-}
-
-const ruleForm = reactive({
-  title: '',
-  content: ''
-})
-
-const rules = reactive({
-  title: [{ validator: validateNotVoid, trigger: 'blur' }],
-  content: [{ validator: validateNotVoid, trigger: 'blur' }]
-})
-
-const submitForm = formEl => {
-  if (!formEl) return
-  return formEl.validate(valid => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
 }
 </script>
 <style scoped lang="less">
