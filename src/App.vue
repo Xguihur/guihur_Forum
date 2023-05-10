@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="main-page">
+    <div class="top">
+      <gh-top></gh-top>
+    </div>
+    <router-view />
+    <div class="bottom">
+      <gh-bottom></gh-bottom>
+    </div>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+<script setup>
+import ghTop from './components/top.vue'
+import ghBottom from './components/bottom.vue'
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style lang="less" scoped>
+.main-page {
+  margin: 0 auto;
+  width: 90%;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+  .bottom {
+    margin-top: 5vh;
+  }
 }
 </style>
