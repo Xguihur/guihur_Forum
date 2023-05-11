@@ -5,7 +5,8 @@ const store = createStore({
   state() {
     return {
       loginState: false,
-      myArticle: ''
+      myArticle: '',
+      render: ''
     }
   },
   mutations: {
@@ -14,6 +15,9 @@ const store = createStore({
     },
     changeMyArticle(state, payload) {
       state.myArticle = payload
+    },
+    changeRender(state, payload) {
+      state.render = payload
     }
   },
   getters: {},

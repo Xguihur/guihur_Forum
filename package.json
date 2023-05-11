@@ -10,7 +10,6 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-plus": "^2.3.4",
-    "marked": "^5.0.1",
     "mavon-editor": "^3.0.1",
     "vue": "^3.0.0",
     "vue-router": "^4.1.6",

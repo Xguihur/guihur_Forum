@@ -9,7 +9,7 @@
         <el-input v-model="ruleForm.content" type="content" autocomplete="off" />
       </el-form-item> -->
       <el-form-item prop="content">
-        <mavon-editor v-model="ruleForm.content" class="mavonBox" />
+        <mavon-editor v-model="ruleForm.content" @change="changeData" class="mavonBox" />
       </el-form-item>
     </el-form>
     <el-button class="danger" type="danger" @click="clear">清空</el-button>
@@ -45,6 +45,10 @@ const toPublic = async () => {
     message: '发布成功',
     type: 'success'
   })
+}
+// 根据md文件的变化生成render（可解析的html文本）
+const changeData = (value, render) => {
+  store.commit('changeRender', render)
 }
 // 清空
 const clear = () => {
