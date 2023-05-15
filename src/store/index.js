@@ -5,7 +5,7 @@ const store = createStore({
   state() {
     return {
       loginState: false,
-      myArticle: '',
+      myArticle: {},
       render: ''
     }
   },
@@ -14,7 +14,9 @@ const store = createStore({
       state.loginState = !state.loginState
     },
     changeMyArticle(state, payload) {
-      state.myArticle = payload
+      state.myArticle.title = payload[0]
+      state.myArticle.introduction = payload[1]
+      state.myArticle.content = state.render
     },
     changeRender(state, payload) {
       state.render = payload

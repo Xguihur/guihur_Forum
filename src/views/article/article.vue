@@ -7,6 +7,7 @@
 </template>
 <script setup>
 import ghArticleCard from './components/articleCard.vue'
+// 这里将来调用接口获取列表，接口是从数据库中拿到 title 和 introduction 和 img 进行处理与返回
 // 传绝对路径不显示图片，于是将图片放到服务器上好了
 const data = [
   {

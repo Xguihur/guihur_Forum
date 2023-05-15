@@ -13,7 +13,7 @@ const text = ref()
 
 const getHtML = () => {
   //理论上从接口获取数据 先暂时从 vuex 中获取数据
-  text.value = store.state.render //确实拿到了 html 格式的文本
+  text.value = store.state.myArticle.content //确实拿到了 html 格式的文本
   return text.value
 }
 

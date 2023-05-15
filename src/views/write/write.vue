@@ -4,6 +4,9 @@
       <el-form-item label="标题" prop="title">
         <el-input v-model="ruleForm.title" type="title" autocomplete="off" />
       </el-form-item>
+      <el-form-item label="简介" prop="introduction">
+        <el-input v-model="ruleForm.introduction" type="introduction" autocomplete="off" />
+      </el-form-item>
 
       <!-- <el-form-item label="内容" prop="content">
         <el-input v-model="ruleForm.content" type="content" autocomplete="off" />
@@ -32,9 +35,19 @@ const toPublic = async () => {
   if (!result) return //未通过验证
   // 此处未来调用接口验证登录信息
   // console.log(ruleForm.content)
+  // 获取到所有的内容整合成一个formdata对象
+  const formData = new FormData()
+  formData.append('title', ruleForm.title)
+  formData.append('introduction', ruleForm.introduction)
+  formData.append('content', store.state.render)
+  // console.log(formData)//不能直接打印，这样是拿不到数据的
+  // 以下成功存入 formData 中了，未来调用接口即可
+  // console.log(formData.get('title'))
+  // console.log(formData.get('introduction'))
+  // console.log(formData.get('content'))
   // 先暂时存到 vuex 中
-  store.commit('changeMyArticle', ruleForm.content)
-  console.log(store.state.myArticle)
+  store.commit('changeMyArticle', [ruleForm.title, ruleForm.introduction])
+  // console.log(store.state.myArticle)
 
   // 跳转到主页查看自己的文章
   setTimeout(() => {
